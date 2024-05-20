@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "extends": [
+    "plugin:@typescript-eslint/strict",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "jsx-a11y",
+    "prefer-arrow",
+    "prettier",
+    "json-files"
+  ],
+  "ignorePatterns": [
+    "!.storybook",
+    "node_modules",
+    "dist",
+    "build"
+  ],
+  "root": true,
+  "rules": {
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "keyword-spacing": "error",
+    "no-console": "error",
+    "prefer-arrow/prefer-arrow-functions": "error",
+    "prettier/prettier": "error",
+    "json-files/sort-package-json": "error",
+    "json-files/require-unique-dependency-names": "error",
+    "import/order": "error",
+    "import/no-unresolved": "off",
+    "import/no-duplicates": "off"
+  }
+}
