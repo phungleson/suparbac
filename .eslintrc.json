@@ -37,7 +37,6 @@
       "as-needed"
     ],
     "keyword-spacing": "error",
-    "no-console": "error",
     "prefer-arrow/prefer-arrow-functions": "error",
     "prettier/prettier": "error",
     "json-files/sort-package-json": "error",
