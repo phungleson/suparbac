@@ -15,7 +15,10 @@ export const forwardRequest = async (request: NextRequest): Promise<Response> =>
     requestInit.duplex = 'half';
   }
 
-  const response = await fetch(`${envSupabaseUrl()}${request.nextUrl.pathname}?${request.nextUrl.searchParams}`);
+  const response = await fetch(
+    `${envSupabaseUrl()}${request.nextUrl.pathname}?${request.nextUrl.searchParams}`,
+    requestInit,
+  );
 
   return response;
 };

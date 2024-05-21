@@ -3,7 +3,7 @@
 import { Label } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormButton } from '@/components/common/FormButton';
 import { FormTextInput } from '@/components/common/FormTextInput';
 import { Link } from '@/components/common/Link';
@@ -16,6 +16,8 @@ export const SignUp: FC = () => {
   const router = useRouter();
   const supabase = createSupabaseClient();
 
+  const [error, setError] = useState<string | null>();
+
   useEffect(() => {
     (async () => {
       const result = await supabase.auth.getUser();
@@ -26,9 +28,14 @@ export const SignUp: FC = () => {
   });
 
   const action = async (formData: FormData) => {
-    const redirectPath = await signUp(formData);
+    const result = await signUp(formData);
     ref.current?.reset();
-    router.push(redirectPath);
+
+    if (result.ok) {
+      router.push(result.ok);
+    } else if (result.error) {
+      setError(result.error);
+    }
   };
 
   return (
@@ -55,6 +62,7 @@ export const SignUp: FC = () => {
               autoComplete="current-password"
             />
           </div>
+          {error && <div className="text-center text-red-500">{error}</div>}
           <FormButton type="submit">Sign up</FormButton>
         </div>
       </form>

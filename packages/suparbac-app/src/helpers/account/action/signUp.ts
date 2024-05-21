@@ -1,9 +1,15 @@
 'use server';
 
-import { getAccountSignUpPath, getApiAccountCallback, getRootPath } from '@/helpers/functions/paths';
+import { SIGN_UP_ERROR, USER_ALREADY_REGISTER } from '../constant';
+import { getApiAccountCallback, getRootPath } from '@/helpers/functions/paths';
+import { log } from '@/helpers/log';
+import { newErrorResult, newOkResult, type Result } from '@/helpers/result/Result';
 import { createSupabaseServerClient } from '@/helpers/supabase/createSupabaseServerClient';
 
-export const signUp = async (formData: FormData): Promise<string> => {
+/**
+ * @returns redirect url if everything proceed successfully, otherwise returns error.
+ */
+export const signUp = async (formData: FormData): Promise<Result<string>> => {
   const callbackURL = getApiAccountCallback();
 
   const email = String(formData.get('email')).trim();
@@ -19,23 +25,22 @@ export const signUp = async (formData: FormData): Promise<string> => {
   });
 
   if (error) {
-    console.error(signUp.name, error);
+    log.error(signUp.name, error);
 
-    if (error.message == 'User already registered') {
-      return getAccountSignUpPath();
+    if (error.message == USER_ALREADY_REGISTER) {
+      return newErrorResult(USER_ALREADY_REGISTER);
     } else {
-      return getAccountSignUpPath();
+      return newErrorResult(SIGN_UP_ERROR);
     }
   } else if (data.session) {
-    return getRootPath();
+    return newOkResult(getRootPath());
   } else if (data.user) {
     if (data.user.identities && data.user.identities.length == 0) {
-      console.error('Sign up error, user already registered');
-      return getAccountSignUpPath();
+      return newErrorResult(USER_ALREADY_REGISTER);
     } else {
-      return getRootPath();
+      return newOkResult(getRootPath());
     }
   } else {
-    return getAccountSignUpPath();
+    return newErrorResult(SIGN_UP_ERROR);
   }
 };

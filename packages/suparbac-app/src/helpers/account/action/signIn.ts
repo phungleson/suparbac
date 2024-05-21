@@ -1,9 +1,15 @@
 'use server';
 
-import { getAccountSignInPath, getRootPath } from '@/helpers/functions/paths';
+import { SIGN_IN_ERROR } from '../constant';
+import { getRootPath } from '@/helpers/functions/paths';
+import { log } from '@/helpers/log';
+import { newErrorResult, newOkResult, type Result } from '@/helpers/result/Result';
 import { createSupabaseServerClient } from '@/helpers/supabase/createSupabaseServerClient';
 
-export const signIn = async (formData: FormData): Promise<string> => {
+/**
+ * @returns redirect url if everything proceed successfully, otherwise returns error.
+ */
+export const signIn = async (formData: FormData): Promise<Result<string>> => {
   const email = String(formData.get('email')).trim();
   const password = String(formData.get('password')).trim();
 
@@ -14,9 +20,9 @@ export const signIn = async (formData: FormData): Promise<string> => {
   });
 
   if (!data.user) {
-    console.error(signIn.name, error);
-    return getAccountSignInPath();
+    log.error(signIn.name, error);
+    return newErrorResult(SIGN_IN_ERROR);
   }
 
-  return getRootPath();
+  return newOkResult(getRootPath());
 };
