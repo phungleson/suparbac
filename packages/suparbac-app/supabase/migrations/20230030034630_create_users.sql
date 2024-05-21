@@ -6,7 +6,6 @@ CREATE TABLE users (
   -- Allows delete auth.users, but keep this data consistent.
   auth_user_id uuid REFERENCES auth.users ON DELETE SET NULL ON UPDATE SET NULL,
   email text NOT NULL,
-  permissions text[],
   created_at timestamp WITHOUT TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
