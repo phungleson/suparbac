@@ -27,7 +27,7 @@ Here's a simpler way to understand the steps to set up Suparbac:
 
 2. **Add Permissions Column:** Create a migration to add a new "permissions" column to your existing users table. It should look similar like this [file](https://github.com/phungleson/suparbac/blob/main/packages/suparbac-app/supabase/migrations/20230031034630_add_users_permissions.sql).
 
-3. **Assign User Permissions:** Grant appropriate permissions to your users. You can do this either through the Supabase Studio interface or by using a script for a more automated approach.
+3. **Assign User Permissions:** Grant appropriate permissions to your users. You can do this either through the Supabase Studio interface or by using a script for a more automated approach. There are 4 types of permission, **create**, **update**, **read** and **delete**. Add permission to users table following this format, **table_name:permission**, for example, **posts:read**.
 
 4. **Deploy Suparbac:** Configure these environment variables in Suparbac then deploy Suparbac to your favorite hosting service.
 
@@ -50,8 +50,6 @@ SUPABASE_PERMISSIONS_COLUMN=
 # This should point to your Suparbac
 NEXT_PUBLIC_SUPABASE_URL=<your-subarbac.hosting.com>
 ```
-
-6. **Add permission to users:** There are 4 types of permission, **create**, **update**, **read** and **delete**. Add permission to users table following this format, **table_name:permission**, for example, **posts:read**.
 
 ## Suparbac-app
 
