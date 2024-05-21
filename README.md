@@ -43,12 +43,15 @@ SUPABASE_USER_ID_COLUMN=
 # Name of your permissions column in users table
 SUPABASE_PERMISSIONS_COLUMN=
 ```
+
 5. **Configure You App:** Set up your app to work with Suparbac.
 
 ```sh
 # This should point to your Suparbac
 NEXT_PUBLIC_SUPABASE_URL=<your-subarbac.hosting.com>
 ```
+
+6. **Add permission to users:** There are 4 types of permission, **create**, **update**, **read** and **delete**. Add permission to users table following this format, **table_name:permission**, for example, **posts:read**.
 
 ## Suparbac-app
 
