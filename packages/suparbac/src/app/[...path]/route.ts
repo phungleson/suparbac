@@ -109,3 +109,5 @@ export const DELETE = async (request: NextRequest): Promise<Response> => {
 
   return forwardRequest(request);
 };
+
+export const OPTIONS = async (request: NextRequest): Promise<Response> => forwardRequest(request);
