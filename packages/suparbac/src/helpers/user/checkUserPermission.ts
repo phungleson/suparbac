@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { envSupabasePermissionsColumn, envSupabaseUserIdColumn, envSupabaseUsersTable } from '../env';
 
 export const checkUserPermission = async (
   supabase: SupabaseClient,
@@ -7,10 +8,10 @@ export const checkUserPermission = async (
   permission: string,
 ): Promise<boolean> => {
   const result = await supabase
-    .from(process.env.SUPABASE_USER_TABLE!)
+    .from(envSupabaseUsersTable())
     .select('id.count()')
-    .eq(process.env.SUPABASE_USER_ID_COLUMN!, userId)
-    .contains(process.env.SUPABASE_PERMISSION_COLUMN!, permission)
+    .eq(envSupabaseUserIdColumn(), userId)
+    .contains(envSupabasePermissionsColumn(), permission)
     .single<{ count: number }>();
 
   if (!result.data) {

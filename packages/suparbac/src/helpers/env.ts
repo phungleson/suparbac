@@ -12,11 +12,11 @@ export const envSupabaseServiceRoleKey = (): string => {
   throw new Error(`SUPABASE_SERVICE_ROLE_KEY env is not set`);
 };
 
-export const envSupabaseUserTable = (): string => {
-  if (process.env.SUPABASE_USER_TABLE) {
-    return process.env.SUPABASE_USER_TABLE;
+export const envSupabaseUsersTable = (): string => {
+  if (process.env.SUPABASE_USERS_TABLE) {
+    return process.env.SUPABASE_USERS_TABLE;
   }
-  throw new Error(`SUPABASE_USER_TABLE env is not set`);
+  throw new Error(`SUPABASE_USERS_TABLE env is not set`);
 };
 
 export const envSupabaseUserIdColumn = (): string => {
@@ -26,9 +26,9 @@ export const envSupabaseUserIdColumn = (): string => {
   throw new Error(`SUPABASE_USER_ID_COLUMN env is not set`);
 };
 
-export const envSupabasePermissionColumn = (): string => {
-  if (process.env.SUPABASE_PERMISSION_COLUMN) {
-    return process.env.SUPABASE_PERMISSION_COLUMN;
+export const envSupabasePermissionsColumn = (): string => {
+  if (process.env.SUPABASE_PERMISSIONS_COLUMN) {
+    return process.env.SUPABASE_PERMISSIONS_COLUMN;
   }
-  throw new Error(`SUPABASE_PERMISSION_COLUMN env is not set`);
+  throw new Error(`SUPABASE_PERMISSIONS_COLUMN env is not set`);
 };
