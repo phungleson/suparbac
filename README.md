@@ -11,13 +11,15 @@ This repository includes:
 
 ## Suparbac
 
-Suparbac is a Next.js app, you can deploy to a hosted service. To get started, you'll need to configure Suparbac to connect to your Supabase instance by setting the appropriate environment variables. Once that's done, your app will connect to Suparbac, which will then act as an intermediary, forwarding most of your requests to Supabase on your behalf.
+Suparbac, a web application created with Next.js, can be easily deployed on a web hosting service. Conceptually, you'll need to configure Suparbac to connect to your Supabase instance by setting the appropriate environment variables. Once that's done, your app will connect to Suparbac, which will then act as an intermediary, forwarding most of your requests to Supabase on your behalf.
 
-Suparbac acts like a security guard for your Supabase data, especially for sensitive actions like creating, reading, updating, or deleting tables or views. When these requests come through Suparbac, it will check if the user making the request has the necessary permissions before allowing it to proceed to Supabase. This helps ensure that only authorized users can modify your data.
+Most importantly, Suparbac acts like a security guard for your Supabase data, especially for sensitive actions like creating, reading, updating, or deleting tables or views. When these requests come through Suparbac, it will check if the user making the request has the necessary permissions before allowing it to proceed to Supabase. This helps ensure that only authorized users can modify your data.
 
 To safeguard your data, unauthenticated requests are denied by default, resulting in an "Unauthorized" (401) response. However, this behavior can be customized to fit your specific needs.
 
-For authorized users, Suparbac verifies their permissions against the permissions column defined in your user table (follow below steps for proper setup). If a user lacks the necessary permission for an action, Suparbac will return a "Forbidden" (403) response.
+For authorized users, Suparbac verifies their permissions against the "permissions" column defined in your users table (follow below steps for proper setup). If a user lacks the necessary permission for an action, Suparbac will return a "Forbidden" (403) response.
+
+### Setup
 
 Here's a simpler way to understand the steps to set up Suparbac:
 
@@ -27,7 +29,26 @@ Here's a simpler way to understand the steps to set up Suparbac:
 
 3. **Assign User Permissions:** Grant appropriate permissions to your users. You can do this either through the Supabase Studio interface or by using a script for a more automated approach.
 
-4. **Deploy Suparbac:** Finally, deploy Suparbac and configure your apps to connect and use Suparbac.
+4. **Deploy Suparbac:** Configure these environment variables in Suparbac then deploy Suparbac to your favorite hosting service.
+
+```sh
+# Url to your supabase, it should look like this https://<project-id>.supabase.co
+SUPABASE_URL=
+# Supabase service role key, Suparbac requires this to access users table
+SUPABASE_SERVICE_ROLE_KEY=
+# Name of your users table
+SUPABASE_USER_TABLE=
+# Name of your user id in users table
+SUPABASE_USER_ID_COLUMN=
+# Name of your permissions column in users table
+SUPABASE_PERMISSIONS_COLUMN=
+```
+5. **Configure You App:** Set up your app to work with Suparbac.
+
+```sh
+# This should point to your Suparbac
+NEXT_PUBLIC_SUPABASE_URL=<your-subarbac.hosting.com>
+```
 
 ## Suparbac-app
 
