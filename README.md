@@ -25,7 +25,7 @@ Here's a simpler way to understand the steps to set up Suparbac:
 
 1. **Verify User Table:** Before you begin, ensure you have a users/profiles table set up exactly as [Supabase](https://supabase.com/docs/guides/auth/managing-user-data) recommends.
 
-2. **Add Permissions Column:** Create a migration to add a new "permissions" column to your existing users table. It should look similar like this [file](https://github.com/phungleson/suparbac/blob/main/packages/suparbac-app/supabase/migrations/20230031034630_add_users_permissions.sql)
+2. **Add Permissions Column:** Create a migration to add a new "permissions" column to your existing users table. It should look similar like this [file](https://github.com/phungleson/suparbac/blob/main/packages/suparbac-app/supabase/migrations/20230031034630_add_users_permissions.sql).
 
 3. **Assign User Permissions:** Grant appropriate permissions to your users. You can do this either through the Supabase Studio interface or by using a script for a more automated approach.
 
