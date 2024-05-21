@@ -15,7 +15,7 @@ Suparbac is a Next.js app, you can deploy to a hosted service. To get started, y
 
 Suparbac acts like a security guard for your Supabase data, especially for sensitive actions like creating, reading, updating, or deleting tables or views. When these requests come through Suparbac, it will check if the user making the request has the necessary permissions before allowing it to proceed to Supabase. This helps ensure that only authorized users can modify your data.
 
-# Suparbaca-app
+## Suparbaca-app
 
 Suparbaca-app serves 2 purposes:
 
