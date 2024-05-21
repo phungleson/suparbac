@@ -23,7 +23,7 @@ For authorized users, Suparbac verifies their permissions against the "permissio
 
 Here's a simpler way to understand the steps to set up Suparbac:
 
-1. **Verify User Table:** Before you begin, ensure you have a users/profiles table set up exactly as [Supabase](https://supabase.com/docs/guides/auth/managing-user-data) recommends.
+1. **Verify Users Table:** Before you begin, ensure you have a users/profiles table set up exactly as [Supabase](https://supabase.com/docs/guides/auth/managing-user-data) recommends.
 
 2. **Add Permissions Column:** Create a migration to add a new "permissions" column to your existing users table. It should look similar like this [file](https://github.com/phungleson/suparbac/blob/main/packages/suparbac-app/supabase/migrations/20230031034630_add_users_permissions.sql).
 
@@ -44,7 +44,7 @@ SUPABASE_USER_ID_COLUMN=
 SUPABASE_PERMISSIONS_COLUMN=
 ```
 
-5. **Configure You App:** Set up your app to work with Suparbac.
+5. **Setup Your App:** Configure your app to work with Suparbac.
 
 ```sh
 # This should point to your Suparbac
