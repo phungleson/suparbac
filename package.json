@@ -1,10 +1,9 @@
 {
   "name": "suparbac",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "A friendly RBAC for your Supabase",
+  "keywords": ["Supabase", "RBAC"],
   "author": "Son",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint --fix"
   },

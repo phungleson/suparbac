@@ -1,7 +1,9 @@
 {
   "name": "suparbac",
+  "description": "A friendly RBAC for your Supabase",
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "author": "Son",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
