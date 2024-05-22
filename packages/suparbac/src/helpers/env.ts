@@ -12,6 +12,13 @@ export const envSupabaseServiceRoleKey = (): string => {
   throw new Error(`SUPABASE_SERVICE_ROLE_KEY env is not set`);
 };
 
+export const envSupabaseAnonKey = (): string => {
+  if (process.env.SUPABASE_ANON_KEY) {
+    return process.env.SUPABASE_ANON_KEY;
+  }
+  throw new Error(`SUPABASE_ANON_KEY env is not set`);
+};
+
 export const envSupabaseUsersTable = (): string => {
   if (process.env.SUPABASE_USERS_TABLE) {
     return process.env.SUPABASE_USERS_TABLE;
