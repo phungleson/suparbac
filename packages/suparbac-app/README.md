@@ -1,6 +1,6 @@
-# SupaRBAC App
+# Suparbac App
 
-SupaRBAC app serves 2 purposes:
+Suparbac app serves 2 purposes:
 
 * It keeps local integration tests.
 
