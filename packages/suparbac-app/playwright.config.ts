@@ -43,6 +43,7 @@ const config = defineConfig({
     command: 'pnpm supabase:reset && pnpm dev',
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: false,
+    // reuseExistingServer: true,
   },
 });
 

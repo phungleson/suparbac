@@ -1,9 +1,8 @@
 import type { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
+import { PASSWORD } from './constant';
 
-export const PASSWORD = '123456';
-
-export const setupUser = async (page: Page, email: string): Promise<void> => {
+export const signUp = async (page: Page, email: string): Promise<void> => {
   await page.goto('/');
 
   await page.getByText('Sign up').click();
@@ -12,6 +11,4 @@ export const setupUser = async (page: Page, email: string): Promise<void> => {
   await page.getByRole('button', { name: 'Sign up' }).click();
 
   await expect(page.getByText('Home')).toBeVisible();
-
-  await page.context().clearCookies();
 };

@@ -9,14 +9,12 @@ export const checkUserPermission = async (
 ): Promise<boolean> => {
   const result = await supabase
     .from(envSupabaseUsersTable())
-    .select('id.count()')
+    .select('id')
     .eq(envSupabaseUserIdColumn(), userId)
-    .contains(envSupabasePermissionsColumn(), permission)
-    .single<{ count: number }>();
+    .contains(envSupabasePermissionsColumn(), `{${permission}}`)
+    .single();
 
-  if (!result.data) {
-    return false;
-  }
+  console.log('result', result);
 
-  return result.data.count > 0;
+  return result.data != undefined;
 };

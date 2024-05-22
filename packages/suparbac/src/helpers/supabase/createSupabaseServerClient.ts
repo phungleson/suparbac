@@ -1,43 +1,25 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { createServerClient } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
+import { envSupabaseAnonKey, envSupabaseUrl } from '../env';
 
 // Define a function to create a Supabase client for server-side operations
 // The function takes a cookie store created with next/headers cookies as an argument
-export const createSupabaseServerClient = (): SupabaseClient => {
-  const cookieStore = cookies();
-
-  return createServerClient(
+export const createSupabaseServerClient = (headers: Headers): SupabaseClient =>
+  createServerClient(
     // Pass Supabase URL and anonymous key from the environment to the client
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-
-    // Define a cookies object with methods for interacting with the cookie store and pass it to the client
+    envSupabaseUrl(),
+    envSupabaseAnonKey(),
     {
-      cookies: {
-        // The get method is used to retrieve a cookie by its name
-        get: (name: string) => cookieStore.get(name)?.value,
-        // The set method is used to set a cookie with a given name, value, and options
-        set: (name: string, value: string, options: CookieOptions) => {
-          try {
-            cookieStore.set({ name, value, ...options });
-          } catch (error) {
-            // If the set method is called from a Server Component, an error may occur
-            // This can be ignored if there is middleware refreshing user sessions
-          }
-        },
-        // The remove method is used to delete a cookie by its name
-        remove: (name: string, options: CookieOptions) => {
-          try {
-            cookieStore.set({ name, value: '', ...options });
-          } catch (error) {
-            // If the remove method is called from a Server Component, an error may occur
-            // This can be ignored if there is middleware refreshing user sessions
-          }
-        },
+      cookies: {},
+      db: {
+        schema: 'public',
+      },
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+      global: {
+        headers: { Authorization: headers.get('Authorization') ?? '' },
       },
     },
   );
-};
