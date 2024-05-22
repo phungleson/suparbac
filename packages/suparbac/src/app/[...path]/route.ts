@@ -1,8 +1,10 @@
 import type { NextRequest } from 'next/server';
+import { envSupabaseServiceRoleKey } from '@/helpers/env';
 import { getCreatePermission } from '@/helpers/permission/getCreatePermission';
 import { getDeletePermission } from '@/helpers/permission/getDeletePermission';
 import { getReadPermission } from '@/helpers/permission/getReadPermission';
 import { getUpdatePermission } from '@/helpers/permission/getUpdatePermission';
+import { forwardAdminRequest } from '@/helpers/request/forwardAdminRequest';
 import { forwardRequest } from '@/helpers/request/forwardRequest';
 import { newForbiddenResponse } from '@/helpers/response/newForbiddenResponse';
 import { newUnauthorizedResponse } from '@/helpers/response/newUnauthorizedResponse';
@@ -11,103 +13,147 @@ import { createSupabaseServerClient } from '@/helpers/supabase/createSupabaseSer
 import { checkUserPermission } from '@/helpers/user/checkUserPermission';
 
 export const GET = async (request: NextRequest): Promise<Response> => {
-  const subpaths = request.nextUrl.pathname.split('/');
-
-  if (subpaths.length != 1) {
+  // Forwards for non postrest requests
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith('/rest/v1/')) {
     return forwardRequest(request);
   }
-  const table = subpaths[0];
 
-  const supabase = createSupabaseServerClient();
+  // Forwards for non table/view requests
+  const postrestPath = pathname.replace('/rest/v1/', '');
+  if (postrestPath.includes('/')) {
+    return forwardRequest(request);
+  }
+  const table = postrestPath;
+
+  // Forwards for admin requests
+  if (request.headers.get('Authorization') == `Bearer ${envSupabaseServiceRoleKey()}`) {
+    return forwardRequest(request);
+  }
+
+  const supabase = createSupabaseServerClient(request.headers);
   const result = await supabase.auth.getUser();
-  const useId = result.data.user?.id;
-  if (!useId) {
+  const userId = result.data.user?.id;
+  if (!userId) {
     return newUnauthorizedResponse();
   }
 
   const supabaseAdmin = createSupabaseAdminClient();
-  const isPermitted = await checkUserPermission(supabaseAdmin, useId, getReadPermission(table));
+  const isPermitted = await checkUserPermission(supabaseAdmin, userId, getReadPermission(table));
 
   if (!isPermitted) {
     return newForbiddenResponse();
   }
 
-  return forwardRequest(request);
+  return forwardAdminRequest(request);
 };
 
 export const POST = async (request: NextRequest): Promise<Response> => {
-  const subpaths = request.nextUrl.pathname.split('/');
-
-  if (subpaths.length != 1) {
+  // Forwards for non postrest requests
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith('/rest/v1/')) {
     return forwardRequest(request);
   }
-  const table = subpaths[0];
 
-  const supabase = createSupabaseServerClient();
+  // Forwards for non table/view requests
+  const postrestPath = pathname.replace('/rest/v1/', '');
+  if (postrestPath.includes('/')) {
+    return forwardRequest(request);
+  }
+  const table = postrestPath;
+
+  // Forwards for admin requests
+  if (request.headers.get('Authorization') == `Bearer ${envSupabaseServiceRoleKey()}`) {
+    return forwardRequest(request);
+  }
+
+  const supabase = createSupabaseServerClient(request.headers);
   const result = await supabase.auth.getUser();
-  const useId = result.data.user?.id;
-  if (!useId) {
+  const userId = result.data.user?.id;
+  if (!userId) {
     return newUnauthorizedResponse();
   }
 
   const supabaseAdmin = createSupabaseAdminClient();
-  const isPermitted = await checkUserPermission(supabaseAdmin, useId, getCreatePermission(table));
+  const isPermitted = await checkUserPermission(supabaseAdmin, userId, getCreatePermission(table));
 
   if (!isPermitted) {
     return newForbiddenResponse();
   }
 
-  return forwardRequest(request);
+  return forwardAdminRequest(request);
 };
 
 export const PATCH = async (request: NextRequest): Promise<Response> => {
-  const subpaths = request.nextUrl.pathname.split('/');
-
-  if (subpaths.length != 1) {
+  // Forwards for non postrest requests
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith('/rest/v1/')) {
     return forwardRequest(request);
   }
-  const table = subpaths[0];
 
-  const supabase = createSupabaseServerClient();
+  // Forwards for non table/view requests
+  const postrestPath = pathname.replace('/rest/v1/', '');
+  if (postrestPath.includes('/')) {
+    return forwardRequest(request);
+  }
+  const table = postrestPath;
+
+  // Forwards for admin requests
+  if (request.headers.get('Authorization') == `Bearer ${envSupabaseServiceRoleKey()}`) {
+    return forwardRequest(request);
+  }
+
+  const supabase = createSupabaseServerClient(request.headers);
   const result = await supabase.auth.getUser();
-  const useId = result.data.user?.id;
-  if (!useId) {
+  const userId = result.data.user?.id;
+  if (!userId) {
     return newUnauthorizedResponse();
   }
 
   const supabaseAdmin = createSupabaseAdminClient();
-  const isPermitted = await checkUserPermission(supabaseAdmin, useId, getUpdatePermission(table));
+  const isPermitted = await checkUserPermission(supabaseAdmin, userId, getUpdatePermission(table));
 
   if (!isPermitted) {
     return newForbiddenResponse();
   }
 
-  return forwardRequest(request);
+  return forwardAdminRequest(request);
 };
 
 export const DELETE = async (request: NextRequest): Promise<Response> => {
-  const subpaths = request.nextUrl.pathname.split('/');
-
-  if (subpaths.length != 1) {
+  // Forwards for non postrest requests
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith('/rest/v1/')) {
     return forwardRequest(request);
   }
-  const table = subpaths[0];
 
-  const supabase = createSupabaseServerClient();
+  // Forwards for non table/view requests
+  const postrestPath = pathname.replace('/rest/v1/', '');
+  if (postrestPath.includes('/')) {
+    return forwardRequest(request);
+  }
+  const table = postrestPath;
+
+  // Forwards for admin requests
+  if (request.headers.get('Authorization') == `Bearer ${envSupabaseServiceRoleKey()}`) {
+    return forwardRequest(request);
+  }
+
+  const supabase = createSupabaseServerClient(request.headers);
   const result = await supabase.auth.getUser();
-  const useId = result.data.user?.id;
-  if (!useId) {
+  const userId = result.data.user?.id;
+  if (!userId) {
     return newUnauthorizedResponse();
   }
 
   const supabaseAdmin = createSupabaseAdminClient();
-  const isPermitted = await checkUserPermission(supabaseAdmin, useId, getDeletePermission(table));
+  const isPermitted = await checkUserPermission(supabaseAdmin, userId, getDeletePermission(table));
 
   if (!isPermitted) {
     return newForbiddenResponse();
   }
 
-  return forwardRequest(request);
+  return forwardAdminRequest(request);
 };
 
 export const OPTIONS = async (request: NextRequest): Promise<Response> => forwardRequest(request);
