@@ -56,15 +56,15 @@ NEXT_PUBLIC_SUPABASE_URL=<your-subarbac.hosting.com>
 Suparbac-app serves 2 purposes:
 
 * **Provides a blueprint for integrating your app with Suparbac:** The Suparbac-app acts as a reference guide, showcasing how to configure your own application to seamlessly work with Suparbac. By following its example, you'll gain a clear understanding of the steps required for a successful integration.
-* **Ensures Suparbac functions flawlessly without compromising Supabase:** The Suparbac-app incorporates integration tests. These tests serve a critical purpose: verifying that Suparbac operates as intended without introducing any disruptions to the core functionalities of Supabase. 
+* **Ensures Suparbac functions flawlessly without compromising Supabase:** The Suparbac-app incorporates integration tests. These tests serve a critical purpose: verifying that Suparbac operates as intended without introducing any disruptions to the core functionalities of Supabase.
 
 Here's are the steps to run Suparbac-app tests:
 
-1. **Install Dependencies:** Exectute `pnpm install` or use your perferred package manager.
+1. **Install Dependencies:** Execute `pnpm install` or use your preferred package manager.
 
-1. **Run Suparbac:** Navigate to Suparbac directory, make sure `.env.local` is correct then exectute `pnpm dev` to run its local server.
+1. **Run Suparbac:** Navigate to Suparbac directory, make sure `.env.local` is correct then execute `pnpm dev` to run its local server.
 
-1. **Run Supabase Local:** Navigate to Suparbac-app directory, exectute `pnpm supabase:start` to run Supabase in Docker and apply migrations.
+1. **Run Supabase Local:** Navigate to Suparbac-app directory, execute `pnpm supabase:start` to run Supabase in Docker and apply migrations.
 
-1. **Run Supabase-app Tests:** Navigate to Suparbac-app directory, make sure `.env.local` is correct then exectute `pnpm test:playwright` to run integration tests.
+1. **Run Supabase-app Tests:** Navigate to Suparbac-app directory, make sure `.env.local` is correct then execute `pnpm test:playwright` to run integration tests.
 
